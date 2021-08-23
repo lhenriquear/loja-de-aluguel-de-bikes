@@ -67,7 +67,7 @@ class Loja(object):
             return horaLocacao
     
     ### Locação por semana:
-    def locacaoSemanal(self, qtBikes):
+    def locacaoSemana(self, qtBikes):
         """
         Locação de bicicleta(s) por semana ao Cliente.
         """
@@ -144,72 +144,60 @@ class Loja(object):
 # Criação da Classe/Objeto "CLIENTE":
 
 class Cliente(object):
-    def __init__(self, nome, carteira):
-        self.nome = nome
-        self.carteira = carteira
-        self.conta = 0
+    def __init__(self):
+        """
+        Construtor da classe, instancia o Cliente da Loja.
+        """
+        self.qtBikes = 0
+        self.tipoLocacao = 0
+        self.horaLocacao = 0
 
-    # verifica o estoque disponível de bicicletas
+    # Métodos:
+    ## Ver as bicicletas disponíveis na Loja:
+    def verEstoque(self):
+        return print(f"O estoque disponível é de {Loja.estoque} bicicleta(s)")
 
-    def verEstoque(self, estoque):
-        self.estoque = estoque
-        return print(f'O estoque disponível é {estoque} bike(s)')
-
-    def alugaBike(self, qtdeBikes, tempoLocacao, objetoLoja):
+    ## Alugar bicicletas, sob as diferentes modalidades:
+    def alugaBike(self, qtBikes, tipoLocacao):
+        """
+        Realiza o pedido de locação de bicicletas, conforme quantidade e 
+        modalidade escolhidas pelo Cliente.
+        Retorna os dados: qtBikes, tipoLocacao e horaLocacao, que serão
+        utilizados para calcular o valor devido.
+        """
+        
+        qtBikes = input("Quantas bicicletas gostaria de alugar?")
         try:
-            if qtdeBikes <= 0:
-                raise ValueError("Digite uma quantidade maior do que 1")
-
-            self.conta += objetoLoja.receberPedido(qtdeBikes)
-            print(
-                f"Cliente {self.nome} - O aluguel de {qtdeBikes} bike(s) foi realizado. Conta: R${self.conta}")
-            return self.conta
-
+            qtBikes = int(qtBikes)
         except ValueError:
-            print(
-                f"Cliente {self.nome} - Aluguel de {qtdeBikes} bike(s) não efetuado por quantidade inválida. Conta: R${self.conta}")
+            print("A quantidade de bicicletas para locação deve ser um número inteiro positivo!")
             return -1
 
-        except SystemError:
-            print(
-                f"Cliente {self.nome} - Aluguel de {qtdeBikes} bike(s) não efetuado por loja inválida. Conta: R${self.conta}")
+        if qtBikes < 1:
+            print("Entrada inválida.\nA quantidade de bicicletas para locação deve ser maior \
+                do que zero!")
             return -1
-
-        except:
-            print(
-                f"Cliente {self.nome} - Aluguel de {qtdeBikes} bike(s) não efetuado. Conta: R${self.conta}")
-            return -1
-
-    def pagaConta(self, conta):
+        else:
+            self.qtBikes = qtBikes
+        
+        tipoLocacao = input("Qual o tipo de locação que deseja?\n (Digite o número)\n \
+            1 - Locação por hora (R$ 5,00/hora); \n \
+            2 - Locação por dia (R$ 25,00/dia); \n \
+            3 - Locação por semana (R$ 100,00/semana).")        
         try:
-            if conta <= 0:
-                raise ValueError("Valor inválido")
-
-            if conta > self.carteira:
-                raise ArithmeticError("Você não tem dinheiro para pagar.")
-
-            self.carteira -= conta
-            divida = objetoLoja.receberPagamento(self.conta, conta)
-            print(
-                f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} feito. Saldo devedor: R${self.conta}. Carteira: R${self.carteira}")
-            if divida == 0:
-                self.conta = 0
-            elif divida > 0:
-                self.conta = divida
-            else:
-                self.carteira -= divida
-                self.conta = 0
-            return self.carteira
-
+            tipoLocacao = int(tipoLocacao)
         except ValueError:
-            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado (valor menor ou igual a zero). Conta: R${self.conta}. Carteira: R${self.carteira}")
+            print("O tipo de locação deve ser um número inteiro positivo!")
             return -1
-        except ArithmeticError:
-            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado (saldo insuficiente). Conta: R${self.conta}. Carteira: R${self.carteira}")
-            return -1
-        except SystemError:
-            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado (estabeleça uma loja). Conta: R${self.conta}. Carteira: R${self.carteira}")
-            return -1
-        except:
-            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado. Operação cancelada. Conta: R${self.conta}. Carteira: R${self.carteira}")
-            return -1
+        
+        if tipoLocacao not in [1, 2, 3]:
+            print("Entrada inválida.\nFavor escolher entre as opções 1, 2 ou 3, acima.")
+            return -1   
+        elif tipoLocacao == 1:
+            self.horaLocacao = Loja.locacaoHora(qtBikes)        
+        elif tipoLocacao == 2:
+            self.horaLocacao = Loja.locacaoDia(qtBikes)
+        else: # tipoLocacao == 3:
+            self.horaLocacao = Loja.locacaoSemana(qtBikes)
+        
+        return self.qtBikes, self.tipoLocacao, self.horaLocacao
