@@ -66,7 +66,7 @@ class Loja(object):
             return horaLocacao
     
     ### Locação por semana:
-    def locacaoSemanal(self, qtBikes):
+    def locacaoSemana(self, qtBikes):
         """
         Locação de bicicleta(s) por semana ao Cliente.
         """
@@ -139,3 +139,65 @@ class Loja(object):
         else:
             print("Locação não encontrada no sistema.")
             return None
+            return None
+
+# Criação da Classe/Objeto "CLIENTE":
+
+class Cliente(object):
+    def __init__(self):
+        """
+        Construtor da classe, instancia o Cliente da Loja.
+        """
+        self.qtBikes = 0
+        self.tipoLocacao = 0
+        self.horaLocacao = 0
+
+    # Métodos:
+    ## Ver as bicicletas disponíveis na Loja:
+    def verEstoque(self):
+        return print(f"O estoque disponível é de {Loja.estoque} bicicleta(s)")
+
+    ## Alugar bicicletas, sob as diferentes modalidades:
+    def alugaBike(self, qtBikes, tipoLocacao):
+        """
+        Realiza o pedido de locação de bicicletas, conforme quantidade e 
+        modalidade escolhidas pelo Cliente.
+        Retorna os dados: qtBikes, tipoLocacao e horaLocacao, que serão
+        utilizados para calcular o valor devido.
+        """
+        
+        qtBikes = input("Quantas bicicletas gostaria de alugar?")
+        try:
+            qtBikes = int(qtBikes)
+        except ValueError:
+            print("A quantidade de bicicletas para locação deve ser um número inteiro positivo!")
+            return -1
+
+        if qtBikes < 1:
+            print("Entrada inválida.\nA quantidade de bicicletas para locação deve ser maior \
+                do que zero!")
+            return -1
+        else:
+            self.qtBikes = qtBikes
+        
+        tipoLocacao = input("Qual o tipo de locação que deseja?\n (Digite o número)\n \
+            1 - Locação por hora (R$ 5,00/hora); \n \
+            2 - Locação por dia (R$ 25,00/dia); \n \
+            3 - Locação por semana (R$ 100,00/semana).")        
+        try:
+            tipoLocacao = int(tipoLocacao)
+        except ValueError:
+            print("O tipo de locação deve ser um número inteiro positivo!")
+            return -1
+        
+        if tipoLocacao not in [1, 2, 3]:
+            print("Entrada inválida.\nFavor escolher entre as opções 1, 2 ou 3, acima.")
+            return -1   
+        elif tipoLocacao == 1:
+            self.horaLocacao = Loja.locacaoHora(qtBikes)        
+        elif tipoLocacao == 2:
+            self.horaLocacao = Loja.locacaoDia(qtBikes)
+        else: # tipoLocacao == 3:
+            self.horaLocacao = Loja.locacaoSemana(qtBikes)
+        
+        return self.qtBikes, self.tipoLocacao, self.horaLocacao
