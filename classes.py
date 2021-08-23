@@ -140,3 +140,82 @@ class Loja(object):
         else:
             print("Locação não encontrada no sistema.")
             return None
+
+# Criação da Classe/Objeto "CLIENTE":
+
+class Cliente(object):
+    def __init__(self, nome, carteira):
+        self.nome = nome
+        self.carteira = carteira
+        self.conta = 0
+
+    # verifica o estoque disponível de bicicletas
+
+    def verEstoque(self, estoque, objetoLoja):
+        self.estoque = estoque
+        return print(f'O estoque disponível é {estoque} bike(s)')
+
+    def alugaBike(self, qtdeBikes, tempoLocacao, objetoLoja):
+        try:
+            if qtdeBikes <= 0:
+                raise ValueError("Digite uma quantidade maior do que 1")
+
+            if not isinstance(objetoLoja, loja):
+                raise SystemError("Não recebeu uma loja")
+
+            self.conta += objetoLoja.receberPedido(qtdeBikes)
+            print(
+                f"Cliente {self.nome} - O aluguel de {qtdeBikes} bike(s) foi realizado. Conta: R${self.conta}")
+            return self.conta
+
+        except ValueError:
+            print(
+                f"Cliente {self.nome} - Aluguel de {qtdeBikes} bike(s) não efetuado por quantidade inválida. Conta: R${self.conta}")
+            return -1
+
+        except SystemError:
+            print(
+                f"Cliente {self.nome} - Aluguel de {qtdeBikes} bike(s) não efetuado por loja inválida. Conta: R${self.conta}")
+            return -1
+
+        except:
+            print(
+                f"Cliente {self.nome} - Aluguel de {qtdeBikes} bike(s) não efetuado. Conta: R${self.conta}")
+            return -1
+
+    def pagaConta(self, conta, objetoLoja):
+        try:
+            if conta <= 0:
+                raise ValueError("Valor inválido")
+
+            if conta > self.carteira:
+                raise ArithmeticError("Você não tem dinheiro para pagar.")
+
+            if not isinstance(objetoLoja, loja):
+                raise SystemError("Você não estabeleceu uma loja")
+
+            self.carteira -= conta
+            divida = objetoLoja.receberPagamento(self.conta, conta)
+            print(
+                f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} feito. Saldo devedor: R${self.conta}. Carteira: R${self.carteira}")
+            if divida == 0:
+                self.conta = 0
+            elif divida > 0:
+                self.conta = divida
+            else:
+                self.carteira -= divida
+                self.conta = 0
+            return self.carteira
+
+        except ValueError:
+            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado (valor menor ou igual a zero). Conta: R${self.conta}. Carteira: R${self.carteira}")
+            return -1
+        except ArithmeticError:
+            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado (saldo insuficiente). Conta: R${self.conta}. Carteira: R${self.carteira}")
+            return -1
+        except SystemError:
+            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado (estabeleça uma loja). Conta: R${self.conta}. Carteira: R${self.carteira}")
+            return -1
+        except:
+            print(f"Cliente {self.nome} - Pagamento de R${conta} da conta de R${self.conta} não realizado. Operação cancelada. Conta: R${self.conta}. Carteira: R${self.carteira}")
+            return -1
