@@ -127,6 +127,7 @@ class Loja(object):
             ### Locação por semana:
             else: # tipoLocacao == 3:
                 conta = round(tempoLocacao.days / 7) * 100 * qtBikes
+            
             ### Verificação do desconto família:
             if locacaoFamilia == True:
                 conta = conta * (0.7)
