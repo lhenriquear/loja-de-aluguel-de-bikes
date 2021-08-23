@@ -151,7 +151,7 @@ class Cliente(object):
 
     # verifica o estoque disponível de bicicletas
 
-    def verEstoque(self, estoque, objetoLoja):
+    def verEstoque(self, estoque):
         self.estoque = estoque
         return print(f'O estoque disponível é {estoque} bike(s)')
 
@@ -159,9 +159,6 @@ class Cliente(object):
         try:
             if qtdeBikes <= 0:
                 raise ValueError("Digite uma quantidade maior do que 1")
-
-            if not isinstance(objetoLoja, loja):
-                raise SystemError("Não recebeu uma loja")
 
             self.conta += objetoLoja.receberPedido(qtdeBikes)
             print(
@@ -183,16 +180,13 @@ class Cliente(object):
                 f"Cliente {self.nome} - Aluguel de {qtdeBikes} bike(s) não efetuado. Conta: R${self.conta}")
             return -1
 
-    def pagaConta(self, conta, objetoLoja):
+    def pagaConta(self, conta):
         try:
             if conta <= 0:
                 raise ValueError("Valor inválido")
 
             if conta > self.carteira:
                 raise ArithmeticError("Você não tem dinheiro para pagar.")
-
-            if not isinstance(objetoLoja, loja):
-                raise SystemError("Você não estabeleceu uma loja")
 
             self.carteira -= conta
             divida = objetoLoja.receberPagamento(self.conta, conta)
