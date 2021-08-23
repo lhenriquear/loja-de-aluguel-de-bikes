@@ -129,8 +129,11 @@ class Loja(object):
                 conta = round(tempoLocacao.days / 7) * 100 * qtBikes
             
             ### Verificação do desconto família:
-            if locacaoFamilia == True:
+            if locacaoFamilia(qtBikes) == True:
                 conta = conta * (0.7)
+            else:
+                locacaoFamilia(qtBikes)
+            
             ### Imprime uma mensagem de agradecimento ao Cliente e retorna o valor total
             ### devido (conta):
             print(f"Obrigado por devolver a(s) bicicleta(s)! \n \
@@ -144,13 +147,13 @@ class Loja(object):
 # Criação da Classe/Objeto "CLIENTE":
 
 class Cliente(object):
-    def __init__(self):
+    def __init__(self, qtBikes, tipoLocacao, horaLocacao):
         """
         Construtor da classe, instancia o Cliente da Loja.
         """
-        self.qtBikes = 0
-        self.tipoLocacao = 0
-        self.horaLocacao = 0
+        self.qtBikes = qtBikes
+        self.tipoLocacao = tipoLocacao
+        self.horaLocacao = horaLocacao
 
     # Métodos:
     ## Ver as bicicletas disponíveis na Loja:
@@ -180,24 +183,27 @@ class Cliente(object):
         else:
             self.qtBikes = qtBikes
         
-        tipoLocacao = input("Qual o tipo de locação que deseja?\n (Digite o número)\n \
-            1 - Locação por hora (R$ 5,00/hora); \n \
-            2 - Locação por dia (R$ 25,00/dia); \n \
-            3 - Locação por semana (R$ 100,00/semana).")        
-        try:
-            tipoLocacao = int(tipoLocacao)
-        except ValueError:
-            print("O tipo de locação deve ser um número inteiro positivo!")
-            return -1
-        
-        if tipoLocacao not in [1, 2, 3]:
-            print("Entrada inválida.\nFavor escolher entre as opções 1, 2 ou 3, acima.")
-            return -1   
-        elif tipoLocacao == 1:
-            self.horaLocacao = Loja.locacaoHora(qtBikes)        
+        tipoLocacao = 0
+        while tipoLocacao == 0:
+            tipoLocacao = input("Qual o tipo de locação que deseja?\n (Digite o número)\n \
+                1 - Locação por hora (R$ 5,00/hora); \n \
+                2 - Locação por dia (R$ 25,00/dia); \n \
+                3 - Locação por semana (R$ 100,00/semana).")        
+            try:
+                tipoLocacao = int(tipoLocacao)
+            except ValueError:
+                print("O tipo de locação deve ser um número inteiro positivo!")
+                return -1
+            
+            while tipoLocacao not in [1, 2, 3]:
+                print("Entrada inválida.\nFavor escolher entre as opções 1, 2 ou 3, acima.")
+                tipoLocacao = 0
+            
+        if tipoLocacao == 1:
+            self.horaLocacao = Loja.locacaoHora(Cliente.qtBikes)        
         elif tipoLocacao == 2:
-            self.horaLocacao = Loja.locacaoDia(qtBikes)
+            self.horaLocacao = Loja.locacaoDia(Cliente.qtBikes)
         else: # tipoLocacao == 3:
-            self.horaLocacao = Loja.locacaoSemana(qtBikes)
+            self.horaLocacao = Loja.locacaoSemana(Cliente.qtBikes)
         
         return self.qtBikes, self.tipoLocacao, self.horaLocacao
