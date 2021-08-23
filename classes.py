@@ -140,7 +140,6 @@ class Loja(object):
         else:
             print("Locação não encontrada no sistema.")
             return None
-            return None
 
 # Criação da Classe/Objeto "CLIENTE":
 
