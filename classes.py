@@ -9,7 +9,7 @@ class Loja(object):
         self.estoque = estoque
 
     # Métodos:
-    
+   
     ## Mostrar o estoque de bicicletas:
     def mostrarEstoque(self):
         """
@@ -18,10 +18,9 @@ class Loja(object):
         print(f"No momento, temos {self.estoque} bicicletas disponíveis para locação.")
         return self.estoque
     
-    
     ## Receber pedidos de aluguéis por hora, diários ou semanais validando
     ## a possibilidade com o estoque: 
-    
+
     ### Locação por hora:
     def locacaoHora(self, qtBikes):
         """
