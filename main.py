@@ -1,5 +1,6 @@
 from classes import Loja, Cliente
 
+
 def main():
     novaLoja = Loja(100)
     novoCliente = Cliente(0, 0, 0)
@@ -18,7 +19,7 @@ def main():
         try:
             opcao = int(opcao)
         except ValueError:
-            print("Opção inválida!\nA opção deve ser um número inteiro positivo.")
+            print("Opção Inválida!\nA opção deve ser um número inteiro positivo.")
             continue
 
         if opcao == 1:
@@ -33,6 +34,7 @@ def main():
         else:
             print("Opção inválida!\nFavor digitar um número de 1 a 4.")
     print("Obrigado por alugar com a DLM!")
+
 
 if __name__ == "__main__":
     main()
