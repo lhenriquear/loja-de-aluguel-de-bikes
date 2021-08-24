@@ -7,7 +7,7 @@ def main():
 
     while True:
         print("""
-        |----| DLM | ALUGUEL DE BICICLETAS |----|
+        |----| D.L.M | ALUGUEL DE BICICLETAS |----|
         1. Exibir bicicletas disponíveis
         2. Alugar bicicleta(s)
         3. Devolver bicicleta(s)
