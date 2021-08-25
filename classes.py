@@ -207,8 +207,10 @@ class Cliente(object):
 
         if tipoLocacao == 1:
             self.horaLocacao = Loja.locacaoHora(Cliente.qtBikes)
+
         elif tipoLocacao == 2:
             self.horaLocacao = Loja.locacaoDia(Cliente.qtBikes)
+
         else:
             self.horaLocacao = Loja.locacaoSemana(Cliente.qtBikes)
 
