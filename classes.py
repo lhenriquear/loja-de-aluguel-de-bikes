@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Criação da Classe/Objeto "LOJA":
 
@@ -209,7 +209,7 @@ class Cliente(object):
             self.horaLocacao = Loja.locacaoHora(Cliente.qtBikes)
         elif tipoLocacao == 2:
             self.horaLocacao = Loja.locacaoDia(Cliente.qtBikes)
-        else:  # tipoLocacao == 3:
+        else:
             self.horaLocacao = Loja.locacaoSemana(Cliente.qtBikes)
 
         return self.qtBikes, self.tipoLocacao, self.horaLocacao
