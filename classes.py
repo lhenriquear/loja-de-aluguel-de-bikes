@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
 
 # Criação da Classe/Objeto "LOJA":
-
-
 class Loja(object):
     def __init__(self, estoque=0):
         """
@@ -206,12 +204,12 @@ class Cliente(object):
                 tipoLocacao = 0
 
         if tipoLocacao == 1:
-            self.horaLocacao = Loja.locacaoHora(Cliente.qtBikes)
+            self.horaLocacao = Loja.locacaoHora(self.qtBikes)
 
         elif tipoLocacao == 2:
-            self.horaLocacao = Loja.locacaoDia(Cliente.qtBikes)
+            self.horaLocacao = Loja.locacaoDia(self.qtBikes)
 
         else:
-            self.horaLocacao = Loja.locacaoSemana(Cliente.qtBikes)
+            self.horaLocacao = Loja.locacaoSemana(self.qtBikes)
 
         return self.qtBikes, self.tipoLocacao, self.horaLocacao
