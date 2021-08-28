@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+import datetime
 
 # Criação da Classe/Objeto "LOJA":
 
