@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 
 # Criação da Classe/Objeto "LOJA":
+
+
 class Loja(object):
     def __init__(self, estoque=0):
         """
@@ -8,9 +10,8 @@ class Loja(object):
         """
         self.estoque = estoque
 
-    
-
     # Mostrar o estoque de bicicletas:
+
     def mostrarEstoque(self):
         """
         Mostra o estoque de bicicletas disponíveis para locação.
@@ -39,7 +40,7 @@ class Loja(object):
         # Havendo estoque, exibe as informações da locação para o Cliente na tela e
         # retorna a hora atual para posterior cálculo do valor a ser pago:
         else:
-            horaLocacao = datetime.now().strftime('%Y-%m-%d %H:%M')
+            horaLocacao = datetime.now()
             print(f"Olá!\nVocê solicitou o aluguel de {qtBikes} bicicleta(s), às \
                 {horaLocacao} de hoje.\n O valor para locação por hora é de R$ 5,00 \
                 por hora, por bicicleta.\nAgradecemos a preferência e volte sempre!")
@@ -59,7 +60,7 @@ class Loja(object):
                 apenas {self.estoque} bicicleta(s) disponível(eis) em estoque.")
             return None
         else:
-            horaLocacao = datetime.now().strftime('%Y-%m-%d %H:%M')
+            horaLocacao = datetime.now()
             print(f"Olá!\nVocê solicitou o aluguel de {qtBikes} bicicleta(s), às \
 {horaLocacao} de hoje.\nO valor para locação diária é de R$ 25,00 \
 por dia, por bicicleta.\nAgradecemos a preferência e volte sempre!")
@@ -79,7 +80,7 @@ por dia, por bicicleta.\nAgradecemos a preferência e volte sempre!")
                 apenas {self.estoque} bicicleta(s) disponível(eis) em estoque.")
             return None
         else:
-            horaLocacao = datetime.now().strftime('%Y-%m-%d %H:%M')
+            horaLocacao = datetime.now()
             print(f"Olá!\nVocê solicitou o aluguel de {qtBikes} bicicleta(s), às \
                 {horaLocacao} de hoje.\n O valor para locação semanal é de R$ 100,00 \
                 por semana, por bicicleta.\nAgradecemos a preferência e volte sempre!")
@@ -116,7 +117,7 @@ por dia, por bicicleta.\nAgradecemos a preferência e volte sempre!")
         # Caso esteja tudo de acordo com os valores recebidos do método alugaBike:
         if horaLocacao and tipoLocacao and qtBikes:
             self.estoque += qtBikes
-            horaAtual = datetime.now().strftime('%Y-%m-%d %H:%M')
+            horaAtual = datetime.now()
             tempoLocacao = horaAtual - horaLocacao
             # Locação por hora:
             if tipoLocacao == 1:
@@ -203,7 +204,7 @@ class Cliente(object):
             tipoLocacao = 0
 
         if tipoLocacao == 1:
-            self.horaLocacao =  objLoja.locacaoHora(self.qtBikes)
+            self.horaLocacao = objLoja.locacaoHora(self.qtBikes)
             self.tipoLocacao = 1
         elif tipoLocacao == 2:
             self.horaLocacao = objLoja.locacaoDia(self.qtBikes)
