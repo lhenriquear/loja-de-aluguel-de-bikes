@@ -1,5 +1,5 @@
 from classes import Loja, Cliente
-
+from datetime import datetime, timedelta
 
 def main():
     novaLoja = Loja(100)
@@ -25,10 +25,10 @@ def main():
         if opcao == 1:
             novaLoja.mostrarEstoque()
         elif opcao == 2:
-            novoCliente.alugaBike(0, 0)
+            qtBikes, tipoLocacao, horaLocacao = novoCliente.alugaBike(0, 0, novaLoja)
             print("Obrigado por alugar com a DLM!")
         elif opcao == 3:
-            novaLoja.calcularConta(novoCliente.alugaBike(novoCliente.qtBikes, novoCliente.tipoLocacao))
+            novaLoja.calcularConta(horaLocacao, tipoLocacao, qtBikes)
         elif opcao == 4:
             break
         else:
