@@ -1,6 +1,7 @@
 from classes import Loja, Cliente
 from datetime import datetime, timedelta
 
+
 def main():
     novaLoja = Loja(100)
     novoCliente = Cliente(0, 0, 0)
@@ -25,7 +26,8 @@ def main():
         if opcao == 1:
             novaLoja.mostrarEstoque()
         elif opcao == 2:
-            qtBikes, tipoLocacao, horaLocacao = novoCliente.alugaBike(0, 0, novaLoja)
+            qtBikes, tipoLocacao, horaLocacao = novoCliente.alugaBike(
+                0, 0, novaLoja)
             print("Obrigado por alugar com a DLM!")
         elif opcao == 3:
             novaLoja.calcularConta(horaLocacao, tipoLocacao, qtBikes)
