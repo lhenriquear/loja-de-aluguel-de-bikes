@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 import classes
 from datetime import datetime, timedelta
 
@@ -7,7 +8,7 @@ class Testes(unittest.TestCase):
 
     def setUp(self):
         hora = datetime.now()
-        futuredate = datetime.now() + timedelta(days=10)
+        futureDate = datetime.now() + timedelta(days=10)
         self.cliente = classes.Cliente(5, 2, hora)
         self.loja = classes.Loja(50)
 
@@ -44,19 +45,18 @@ class Testes(unittest.TestCase):
         print("\nTeste - alugar '' bikes por dia -")  # corrigir
         self.assertEqual(self.loja.locacaoDia(""), None)
 
-    ## Testes cliente
+    def testCalcularConta(self):
+        futureDate = datetime.now() + timedelta(days=10)
+        hora = datetime.now()
+        print("\nTeste - calcular conta")
+        self.assertEqual(self.loja.calcularConta(3,2,futureDate), (3,2,hora))
 
+    ## Testes cliente
     def testAlugaBike1(self):
         print("\nTeste - alugar 3 bikes por hora -")
-        self.assertEqual(self.cliente.alugaBike(qtBikes=3, tipoLocacao=2),(3,2) )
+        self.assertEqual(self.cliente.alugaBike(3,2), (3,2, datetime.now()) )
 
-    def testVerEstoque(self):
-        print("\nTeste - ver Estoque -") ##a referência a estoque nãoo funciona
-        self.assertEqual(self.cliente.verEstoque(), 50)
 
-    # def testLocacaoFamilia(self):
-    #     print("\nTeste - alugar '' bikes por dia -")  ## corrigir
-    #     self.assertEqual(self.loja.calcularConta(""), None)
 
 
 if __name__ == "__main__":

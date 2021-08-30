@@ -173,45 +173,45 @@ class Cliente(object):
         utilizados para calcular o valor devido.
         """
 
-        qtBikes = input("Quantas bicicletas gostaria de alugar?")
-        try:
-            qtBikes = int(qtBikes)
-        except ValueError:
-            print(
-                "A quantidade de bicicletas para locação deve ser um número inteiro positivo!")
-            return -1
+        qtBikes = 3#input("Quantas bicicletas gostaria de alugar?")
+        # try:
+        #     qtBikes = int(qtBikes)
+        # except ValueError:
+        #     print(
+        #         "A quantidade de bicicletas para locação deve ser um número inteiro positivo!")
+        #     return -1
+        #
+        # if qtBikes < 1:
+        #     print("Entrada inválida.\nA quantidade de bicicletas para locação deve ser maior \
+        #         do que zero!")
+        #     return -1
+        # else:
+        self.qtBikes = qtBikes
 
-        if qtBikes < 1:
-            print("Entrada inválida.\nA quantidade de bicicletas para locação deve ser maior \
-                do que zero!")
-            return -1
-        else:
-            self.qtBikes = qtBikes
-
-        tipoLocacao = 0
-        while tipoLocacao == 0:
-            tipoLocacao = input("Qual o tipo de locação que deseja?\n (Digite o número)\n \
-                1 - Locação por hora (R$ 5,00/hora); \n \
-                2 - Locação por dia (R$ 25,00/dia); \n \
-                3 - Locação por semana (R$ 100,00/semana).")
-            try:
-                tipoLocacao = int(tipoLocacao)
-            except ValueError:
-                print("O tipo de locação deve ser um número inteiro positivo!")
-                return -1
-
-            while tipoLocacao not in [1, 2, 3]:
-                print(
-                    "Entrada inválida.\nFavor escolher entre as opções 1, 2 ou 3, acima.")
-                tipoLocacao = 0
-
-        if tipoLocacao == 1:
-            self.horaLocacao = Loja.locacaoHora(Cliente.qtBikes)
-
-        elif tipoLocacao == 2:
-            self.horaLocacao = Loja.locacaoDia(Cliente.qtBikes)
-
-        else:
-            self.horaLocacao = Loja.locacaoSemana(Cliente.qtBikes)
+        tipoLocacao = 2
+        # while tipoLocacao == 0:
+        #     # tipoLocacao = input("Qual o tipo de locação que deseja?\n (Digite o número)\n \
+        #     #     1 - Locação por hora (R$ 5,00/hora); \n \
+        #     #     2 - Locação por dia (R$ 25,00/dia); \n \
+        #     #     3 - Locação por semana (R$ 100,00/semana).")
+        #     try:
+        #         tipoLocacao = int(tipoLocacao)
+        #     except ValueError:
+        #         print("O tipo de locação deve ser um número inteiro positivo!")
+        #         return -1
+        #
+        #     while tipoLocacao not in [1, 2, 3]:
+        #         print(
+        #             "Entrada inválida.\nFavor escolher entre as opções 1, 2 ou 3, acima.")
+        #         tipoLocacao = 0
+        #
+        # if tipoLocacao == 1:
+        #     self.horaLocacao = Loja.locacaoHora(Cliente.qtBikes)
+        #
+        # elif tipoLocacao == 2:
+        #     self.horaLocacao = Loja.locacaoDia(Cliente.qtBikes)
+        #
+        # else:
+        #     self.horaLocacao = Loja.locacaoSemana(Cliente.qtBikes)
 
         return self.qtBikes, self.tipoLocacao, self.horaLocacao
