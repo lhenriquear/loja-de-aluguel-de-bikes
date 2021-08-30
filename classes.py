@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+import datetime
 
 # Criação da Classe/Objeto "LOJA":
 
@@ -158,7 +158,6 @@ class Cliente(object):
         Retorna os dados: qtBikes, tipoLocacao e horaLocacao, que serão
         utilizados para calcular o valor devido.
         """
-
         qtBikes = input("Quantas bicicletas gostaria de alugar? ")
         try:
             qtBikes = int(qtBikes)
